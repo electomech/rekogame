@@ -1,5 +1,3 @@
-# rekogame
-
 # **Reko Game**
 
 ## **A Game Using Amazon Rekognition**
