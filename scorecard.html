@@ -1,0 +1,108 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+    th{ 
+        color:#fff;
+            }
+	.m{
+		color: white;
+		font-size: larger;
+		font-weight: bolder;
+		}
+	.center{
+		align-items: center;
+
+	}
+</style>
+<!-- <h1 style="text-align: center; color: orange;"> AWS Community Day - Ahmedabad </h1> -->
+<p style="text-align: center; padding-top: 10px;"><img src="./download.png" width=35% height=15% class="center" alt="ACDA_logo"></p>
+<h2 style="text-align: center; color: orange; "> Game Using Amazon Rekognition </h2>
+
+<table class="table table-striped">
+    <tr  class="bg-info">
+        <th>Object Detected</th>
+		<th>No. of Object</th>
+    </tr>
+
+    <tbody id="myTable">
+        
+    </tbody>
+</table>
+
+<script>
+	var myArray = []
+	
+
+	$.ajax({
+		method:'GET',
+		url:'https://8o779gbd19.execute-api.us-east-1.amazonaws.com/dev',
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'
+		},
+		type: "POST", /* or type:"GET" or type:"PUT" */
+		dataType: "json",
+		data: {
+		},
+		success:function(response){
+			message=response.Message
+			myArray = response.Detail
+			buildTable(myArray)
+			console.log(message)
+			console.log(myArray)
+		}
+	})
+
+// 	$.ajax({
+//     url: 'http://mysite.microsoft.sample.xyz.com/api/mycall',
+//     headers: {
+//         'Content-Type': 'application/x-www-form-urlencoded'
+//     },
+//     type: "POST", /* or type:"GET" or type:"PUT" */
+//     dataType: "json",
+//     data: {
+//     },
+//     success: function (result) {
+//         console.log(result);
+//     },
+//     error: function () {
+//         console.log("error");
+//     }
+// });
+
+	function buildTable(Detail){
+		var table = document.getElementById('myTable')
+
+		for (var i = 0; i < myArray.length; i++){
+			var row = `<tr>
+							<td>${"Banana"}</td>
+							<td>${myArray[i]["Items"]['Banana']}</td>
+					  </tr>
+					  <tr>
+							<td>${"Cat"}</td>
+							<td>${myArray[i]["Items"]['Cat']}</td>
+					  </tr>
+					  <tr>
+							<td>${"Cricket Ball"}</td>
+							<td>${myArray[i]["Items"]['Cricket Ball']}</td>
+					  </tr>
+					  <tr>
+							<td>${"Guitar"}</td>
+							<td>${myArray[i]["Items"]['Guitar']}</td>
+					  </tr>
+					  <tr>
+							<td>${"Dog"}</td>
+							<td>${myArray[i]["Items"]['Dog']}</td>
+					  </tr>
+					  <tr class="m bg-info table table-striped">
+							<td>${"Total Score"}</td>
+							<td>${myArray[i]["Total Score"]}</td>
+					  </tr>`
+			table.innerHTML += row
+
+
+		}
+	}
+
+</script>
